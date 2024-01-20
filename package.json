@@ -1,0 +1,27 @@
+{
+  "name": "phonebook",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusufcelilalak/fullstackopen_submissions_part_3_phonebook.git"
+  },
+  "author": "Yusuf Celil Alak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yusufcelilalak/fullstackopen_submissions_part_3_phonebook/issues"
+  },
+  "homepage": "https://github.com/yusufcelilalak/fullstackopen_submissions_part_3_phonebook#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
