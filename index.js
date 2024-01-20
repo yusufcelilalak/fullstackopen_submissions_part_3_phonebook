@@ -24,19 +24,30 @@ const persons = [
     }
 ];
 
-app.get('/api', (request, response) => {
+app.get(['/','/api'], (request, response) => {
     const body = `
-    <h2>all api lists</h2>
+    <h2>info</h2>
+    <p>you can get access of info from <a href="/api/info">here</a>.
+    <h2>all api list</h2>
     <div>
         <b>1</b> - api for getting persons list - <a href="/api/persons">/api/persons</a>
     </div>
     `
     response.send(body);
-})
+});
+
+app.get('/api/info', (request, response) => {
+    const datetime = new Date();
+    const body = `
+    <p>Phonebook has info for ${persons.length} people</p>
+    <p>${datetime}</p>
+    `
+    response.send(body);
+});
 
 app.get('/api/persons',(request, response) => {
     response.json(persons);
-})
+});
 
 
 const PORT = 3001;
