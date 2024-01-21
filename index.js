@@ -88,15 +88,28 @@ app.get('/api/persons/:id', (request, response) => {
 app.post('/api/persons', (request, response) => {
   const body = request.body;
 
-  const newPerson = {
-    id: generateId(),
-    name: body.name,
-    number: body.number
+  if(!body.number || !body.name)
+  {
+    response.status(404).json({
+      error: "name or phone number is missing."
+    });
   }
-
-  persons = persons.concat(newPerson);
-  response.json(newPerson);
-})
+  else if(persons.find(person => person.name === body.name)){
+    response.status(404).json({
+      error: "name must be unique"
+    })
+  }
+  else{
+    const newPerson = {
+      id: generateId(),
+      name: body.name,
+      number: body.number
+    }
+  
+    persons = persons.concat(newPerson);
+    response.json(newPerson);
+  }
+});
 
 
 //**************************************************/
