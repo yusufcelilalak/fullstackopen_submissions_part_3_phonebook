@@ -32,6 +32,9 @@ app.get(['/','/api'], (request, response) => {
     <div>
         <b>1</b> - api for getting persons list - <a href="/api/persons">/api/persons</a>
     </div>
+    <div>
+      <b>2</b> - api for getting single person from list - <a href="/api/persons/1">/api/persons/1</a>
+    </div>
     `
     response.send(body);
 });
@@ -48,6 +51,22 @@ app.get('/api/info', (request, response) => {
 app.get('/api/persons',(request, response) => {
     response.json(persons);
 });
+
+app.get('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const person = persons.find(person => person.id === id);
+
+  if(person)
+  {
+    response.json(person);
+  }
+  else
+  {
+    response.statusMessage = "This person doesn't exist in current persons list.";
+    response.status(404).end();
+  }
+
+})
 
 
 const PORT = 3001;
