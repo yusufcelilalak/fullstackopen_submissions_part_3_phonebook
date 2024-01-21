@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const persons = [
+let persons = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -59,6 +59,22 @@ app.get('/api/persons/:id', (request, response) => {
   if(person)
   {
     response.json(person);
+  }
+  else
+  {
+    response.statusMessage = "This person doesn't exist in current persons list.";
+    response.status(404).end();
+  }
+});
+
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const person = persons.find(person => person.id === id);
+
+  if(person)
+  {
+    persons = persons.filter(person => person.id !== id);
+    response.status(204).end();
   }
   else
   {
