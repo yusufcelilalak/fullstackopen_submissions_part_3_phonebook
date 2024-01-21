@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 let persons = [
     { 
@@ -24,6 +25,20 @@ let persons = [
     }
 ];
 
+
+const generateId = () => {
+  let id = Math.floor(Math.random() * 1000000000000);
+  while(persons.find(person => person.id === id)){
+    id = Math.floor(Math.random() * 1000000000000);
+  }
+
+  return id;
+}
+
+
+//**************************************************/
+// GET APIs
+//**************************************************/
 app.get(['/','/api'], (request, response) => {
     const body = `
     <h2>info</h2>
@@ -67,6 +82,26 @@ app.get('/api/persons/:id', (request, response) => {
   }
 });
 
+//**************************************************/
+// POST APIs
+//**************************************************/
+app.post('/api/persons', (request, response) => {
+  const body = request.body;
+
+  const newPerson = {
+    id: generateId(),
+    name: body.name,
+    number: body.number
+  }
+
+  persons = persons.concat(newPerson);
+  response.json(newPerson);
+})
+
+
+//**************************************************/
+// DELETE APIs
+//**************************************************/
 app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id);
   const person = persons.find(person => person.id === id);
